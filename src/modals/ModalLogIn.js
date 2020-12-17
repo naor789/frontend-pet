@@ -12,7 +12,7 @@ export default function ModalLogIn() {
         setModalLogIn(true);
 
 
-    const handleClose = () => 
+    const handleClose = () =>
         setModalLogIn(false);
 
     const handleSubmit = (event) => {
@@ -28,7 +28,8 @@ export default function ModalLogIn() {
     return (
         <>
             <Button
-                className="btn btn-secondary my-2 my-sm-0 mr-4"
+                className="btn btn-secondary my-2 my-sm-0 mx-3"
+
                 type="button"
                 onClick={openModalLogIn}
             > Log In </Button>
@@ -37,7 +38,9 @@ export default function ModalLogIn() {
 
                 {/* < Modal.Dialog className="d-flex align-items-center justify-content-center"> */}
                 <Modal.Header>
-                    <Modal.Title>Login</Modal.Title>
+
+                    <Modal.Title>Log In</Modal.Title>
+                    <Button variant="light" onClick={handleClose} type="button">x</Button>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>
@@ -58,7 +61,7 @@ export default function ModalLogIn() {
 
                 </Modal.Body>
                 {/* <div className="log-in w-100 text-center mt-2"> */}
-                    {/* Need an account?
+                {/* Need an account?
                     </div> */}
                 {/* <Link className="link-blue" to="/Signup">Sign Up</Link> */}
             </Modal>

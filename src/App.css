@@ -1,3 +1,64 @@
 body {
-height: 100vh;
+  height: 100vh;
+  font-family: "Comfortaa", cursive;
+}
+
+.homePage,
+.search,
+.setting {
+  position: relative;
+}
+
+.welcome {
+  z-index: 99;
+  position: absolute;
+  margin-top: 115px;
+  margin-top: 219px;
+  margin-left: 50px;
+  font-weight: bold;
+}
+
+.aboutUs {
+  position: absolute;
+  margin-top: 334px;
+  z-index: 99;
+  font-size: 18px;
+  margin-left: 35px;
+  padding: 5px;
+}
+
+.quote {
+  position: absolute;
+  /* font-family: 'Handlee', cursive; */
+  z-index: 99;
+  font-size: 21px;
+  margin-left: 70px;
+  margin-top: 480px;
+  font-weight: bold;
+  padding: 7px;
+}
+a {
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #bc8f8f;
+}
+
+.button {
+  background-color: #bc8f8f;
+  border: none;
+  margin-left: 28%;
+  /* padding: 1%; */
+}
+
+.button:hover {
+  background-color: #d8bfd8;
+}
+
+.logo {
+  z-index: 99;
+  position: absolute;
 }

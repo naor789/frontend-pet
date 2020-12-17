@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './App.css';
-import { Nav, Navbar, Container } from "react-bootstrap";
+import { Nav, Navbar, Image } from "react-bootstrap";
 // import ModalLogIn from '../modals/ModalLogIn';
 // import ModalSignUp from '../modals/ModalSignUp';
 import Home from './components/Home';
@@ -11,8 +11,9 @@ import ProfileSetting from './pages/ProfileSetting';
 import MyPets from './pages/MyPets';
 import SearchPet from './pages/SearchPet';
 import Admin from './pages/Admin';
-
-// Modal.setAppElement('#root');
+import logo from "./img/logo.png"
+  
+  
 function App() {
 
   // const [modalLogIn, setModalLogIn] = useState(false)
@@ -31,8 +32,9 @@ function App() {
     <Router>
       <div className=" container-fluid w-100 ">
         <div className="row p-5">
-          <Navbar bg="dark" variant="dark" className="navbar-expand-lg navbar navbar-dark bg-primary p-2 shadow-lg" fixed="top">
+          <Navbar bg="dark" variant="dark" className="navbar-expand-lg navbar navbar-dark bg-primary  shadow-lg" fixed="top">
             <Nav className="collapse navbar-collapse d-flex justify-content-between">
+              <Image src={logo} alt="logo" width="4%"></Image>
               <Link className="link" to="/">Home</Link>
               <Link className="link" to="/ProfileSetting">Profile Setting</Link>
               <Link className="link" to="/MyPets">My Pets</Link>

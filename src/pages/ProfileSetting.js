@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Button, Card, Container, Form } from "react-bootstrap";
+import { Button, Card, Container, Form ,Image} from "react-bootstrap";
+import logoblack from "../img/logoblack.png"
 
 
 export default function ProfileSetting() {
@@ -39,46 +40,47 @@ export default function ProfileSetting() {
 
     return (
         <>
-            <Container className="container">
-                <Card className=" mx-auto mt-4 px-3 py-3 w-50 bg-light text-dark">
-                    <Form onSubmit={handleSubmit}>
+            <Container className="container setting">
+                <Image src={logoblack} width="10%" className="logo"/>
+                <Card className=" mx-auto mb-4 mt-4 px-3 py-3 w-50 bg-light text-dark">
+                    <Form className="mb-4" onSubmit={handleSubmit}>
                         <Form.Group id="email">
-                            <Form.Label>Email</Form.Label>
+                            <Form.Label className=" mt-3" >Email</Form.Label>
                             <Form.Control type="email" value={email} required
                                 onChange={(event) => setEmail(event.target.value)} />
                         </Form.Group>
                         <Form.Group id="password">
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label className=" mt-3" >Password</Form.Label>
                             <Form.Control type="password" value={password} required
                                 onChange={(event) => setPassword(event.target.value)} />
                         </Form.Group>
                         <Form.Group id="confirmPassword">
-                            <Form.Label>Confirm Password</Form.Label>
+                            <Form.Label className=" mt-3" >Confirm Password</Form.Label>
                             <Form.Control type="password" value={passwordConfirm} required
                                 onChange={(event) => setPasswordConfirm(event.target.value)} />
                         </Form.Group>
                         <Form.Group id="firsName">
-                            <Form.Label>Firs Name</Form.Label>
+                            <Form.Label className=" mt-3" >Firs Name</Form.Label>
                             <Form.Control type="email" value={firsName} required
                                 onChange={(event) => setFirsName(event.target.value)} />
                         </Form.Group>
                         <Form.Group id="lastName">
-                            <Form.Label>Last Name</Form.Label>
+                            <Form.Label className=" mt-3" >Last Name</Form.Label>
                             <Form.Control type="email" value={lastName} required
                                 onChange={(event) => setLastName(event.target.value)} />
                         </Form.Group>
                         <Form.Group id="phoneNumber">
-                            <Form.Label>Phone Number</Form.Label>
+                            <Form.Label className=" mt-3" >Phone Number</Form.Label>
                             <Form.Control type="email" value={phoneNumber} required
                                 onChange={(event) => setPhoneNumber(event.target.value)} />
                         </Form.Group>
                         <Form.Group id="bio">
-                            <Form.Label>bio</Form.Label>
+                            <Form.Label className=" mt-3" >bio</Form.Label>
                             <Form.Control type="bio" value={bio} required
                                 onChange={(event) => setBio(event.target.value)} />
                         </Form.Group>
 
-                        <Button onClick={handleSubmit} className="w-100" type="submit" > Save changes </Button>
+                        <Button onClick={handleSubmit} className="w-100 mt-3" type="submit" > Save changes </Button>
                     </Form>
                 </Card>
 

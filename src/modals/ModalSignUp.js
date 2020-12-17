@@ -24,8 +24,6 @@ export default function ModalSignUp() {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        // setEmail(email);
-        // setPassword(password);
         const newUser = {
             id: Math.random(),
             email: email,
@@ -55,8 +53,9 @@ export default function ModalSignUp() {
 
             <Modal show={modalSignUp} onHide={handleClose}>
                 {/* < Modal.Dialog className="d-flex align-items-center justify-content-center"> */}
-                <Modal.Header closeButton>
-                    <Modal.Title>Login</Modal.Title>
+                <Modal.Header >
+                    <Modal.Title>Sign Up</Modal.Title>
+                    <Button variant="light" onClick={handleClose} type="button">x</Button>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>
