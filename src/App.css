@@ -4,8 +4,7 @@ body {
 }
 
 .homePage,
-.search,
-.admin {
+.search {
   position: relative;
 }
 
@@ -37,13 +36,13 @@ body {
   font-weight: bold;
   padding: 7px;
 }
-a {
+.nav {
   color: white;
   font-size: 20px;
   text-decoration: none;
 }
 
-a:hover {
+.nav:hover {
   color: #bc8f8f;
 }
 
@@ -64,12 +63,16 @@ a:hover {
 }
 
 .logo-form {
-  position: absolute;
+  /* position: absolute;
   margin-left: 771px;
-  margin-top: 222px;
+  margin-top: 222px; */
   z-index: 99;
 }
 
-.white-text{
+.white-text {
   color: white;
+}
+
+Tab {
+  font-size: 10px !important;
 }
