@@ -1,5 +1,7 @@
-import React, { useState }from 'react'
-import { Col, Button, Form, Row } from "react-bootstrap";
+import React, { useState } from 'react'
+import { Col, Button, Form, Row, Image } from "react-bootstrap";
+// import logoblack from "../img/logoblack.png"
+
 
 
 export default function Admin() {
@@ -44,10 +46,10 @@ export default function Admin() {
 
 
     return (
-        <div className="container">
+        <div className="container admin">
+            {/* <Image src={logoblack} width="10%" className="logo-form" /> */}
             <Form onSubmit={handleSubmit} className=" mx-auto mt-4 px-3 py-3 w-50 bg-light text-dark">
                 <Form.Row>
-
                     <Form.Group as={Col} controlId="Type">
                         <Form.Label className="mt-1">Type</Form.Label>
                         <Form.Control as="select" defaultValue="Choose...">
@@ -77,9 +79,14 @@ export default function Admin() {
                     </Form.Group>
                 </Form.Row>
 
+                {/* <div class="input-group mb-3">
+  <input type="file" class="form-control" id="inputGroupFile02">
+  <label class="input-group-text" for="inputGroupFile02">Upload</label>
+</div> */}
+
                 <Form.Group as={Col} >
                     <Form.Label className="mt-3 mr-3">Upload picture</Form.Label>
-                    <Form.File id="imgFile"  label="file input" required />
+                    <Form.File id="imgFile" required />
                 </Form.Group>
 
                 <Form.Row>
@@ -121,8 +128,8 @@ export default function Admin() {
                 </Form.Group>
 
                 <fieldset>
-                    <Form.Group as={Row}>
-                        <Form.Label className="mt-2" as="legend" column sm={2}>
+                    <Form.Group >
+                        <Form.Label className="mt-2" as="legend" column sm={2} >
                             Hypoallergenic
       </Form.Label>
                         <Col sm={10}>

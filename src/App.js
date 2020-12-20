@@ -11,7 +11,8 @@ import ProfileSetting from './pages/ProfileSetting';
 import MyPets from './pages/MyPets';
 import SearchPet from './pages/SearchPet';
 import Admin from './pages/Admin';
-import logo from "./img/logo.png"
+import logo from "./img/logo.png";
+import Pet from "./pages/Pet"
   
   
 function App() {
@@ -34,7 +35,7 @@ function App() {
         <div className="row p-5">
           <Navbar bg="dark" variant="dark" className="navbar-expand-lg navbar navbar-dark bg-primary  shadow-lg" fixed="top">
             <Nav className="collapse navbar-collapse d-flex justify-content-between">
-              <Image src={logo} alt="logo" width="4%"></Image>
+              <Image src={logo} alt="logo-nav" width="4%"></Image>
               <Link className="link" to="/">Home</Link>
               <Link className="link" to="/ProfileSetting">Profile Setting</Link>
               <Link className="link" to="/MyPets">My Pets</Link>
@@ -56,13 +57,17 @@ function App() {
             <ProfileSetting></ProfileSetting>
           </Route>
           <Route path="/MyPets">
-            <MyPets ></MyPets>
+            <MyPets >
+            </MyPets>
           </Route>
           <Route path="/SearchPet">
             <SearchPet ></SearchPet>
           </Route>
           <Route path="/Admin">
             <Admin ></Admin>
+          </Route>
+          <Route path="/Pet">
+            <Pet></Pet>
           </Route>
         </Switch>
       </div>

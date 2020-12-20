@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Button, Card, Container, Form ,Image} from "react-bootstrap";
-import logoblack from "../img/logoblack.png"
 
 
 export default function ProfileSetting() {
@@ -40,8 +39,7 @@ export default function ProfileSetting() {
 
     return (
         <>
-            <Container className="container setting">
-                <Image src={logoblack} width="10%" className="logo"/>
+            <Container className="container">
                 <Card className=" mx-auto mb-4 mt-4 px-3 py-3 w-50 bg-light text-dark">
                     <Form className="mb-4" onSubmit={handleSubmit}>
                         <Form.Group id="email">

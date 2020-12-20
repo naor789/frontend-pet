@@ -5,7 +5,7 @@ body {
 
 .homePage,
 .search,
-.setting {
+.admin {
   position: relative;
 }
 
@@ -32,8 +32,8 @@ body {
   /* font-family: 'Handlee', cursive; */
   z-index: 99;
   font-size: 21px;
-  margin-left: 70px;
-  margin-top: 480px;
+  margin-left: 147px;
+  margin-top: 516px;
   font-weight: bold;
   padding: 7px;
 }
@@ -58,7 +58,18 @@ a:hover {
   background-color: #d8bfd8;
 }
 
-.logo {
+.logo-nav {
   z-index: 99;
   position: absolute;
+}
+
+.logo-form {
+  position: absolute;
+  margin-left: 771px;
+  margin-top: 222px;
+  z-index: 99;
+}
+
+.white-text{
+  color: white;
 }
