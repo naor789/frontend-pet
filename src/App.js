@@ -37,10 +37,10 @@ function App() {
             <Nav className="collapse navbar-collapse d-flex justify-content-between">
               <Image src={logo} alt="logo-nav" width="4%"></Image>
               <Link className=" nav" to="/">Home</Link>
-              <Link className=" nav" to="/ProfileSetting">Profile Setting</Link>
-              <Link className=" nav" to="/MyPets">My Pets</Link>
-              <Link className=" nav" to="/SearchPet">Search Pet</Link>
-              <Link className=" nav" to="/Admin">Admin</Link>
+              <Link className=" nav" to="/profilesetting">Profile Setting</Link>
+              <Link className=" nav" to="/mypets">My Pets</Link>
+              <Link className=" nav" to="/searchpet">Search Pet</Link>
+              <Link className=" nav" to="/admin">Admin</Link>
               <form className="form-inline my-2 my-lg-0 float-end">
                 <ModalLogIn />
                 <ModalSignUp />
@@ -53,20 +53,25 @@ function App() {
           <Route exact path="/">
             <Home ></Home>
           </Route>
-          <Route path="/ProfileSetting">
+          {/* <Route >
+            <ModalLogIn path="/login" />
+          </Route>  <Route >
+            <ModalSignUp path="/singup" />
+          </Route> */}
+          <Route path="/profilesetting">
             <ProfileSetting></ProfileSetting>
           </Route>
-          <Route path="/MyPets">
+          <Route path="/mypets">
             <MyPets >
             </MyPets>
           </Route>
-          <Route path="/SearchPet">
+          <Route path="/searchpet">
             <SearchPet ></SearchPet>
           </Route>
-          <Route path="/Admin">
+          <Route path="/admin">
             <Admin ></Admin>
           </Route>
-          <Route path="/Pet">
+          <Route path="/pet">
             <Pet></Pet>
           </Route>
         </Switch>

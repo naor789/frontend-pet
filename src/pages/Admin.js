@@ -14,13 +14,11 @@ export default function Admin() {
     return (
 
         <div className="container">
-            <Tabs defaultActiveKey="home" id="uncontrolled-tab-example">
-                <Tab eventKey="home" className="tabs" title="Home">
+            <Tabs defaultActiveKey="addPet" id="uncontrolled-tab-example">
+                <Tab eventKey="addPet" className="tabs" title="Add pet">
                     <AddPet />
                 </Tab>
-                <Tab eventKey="profile" className="tabs" title="Profile">
-
-
+                <Tab eventKey="userList" className="tabs" title="User list">
 
                 </Tab>
 

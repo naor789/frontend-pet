@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { Modal, Button, Form } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import axios from 'axios'
 
 
 export default function ModalLogIn() {
     const [modalLogIn, setModalLogIn] = useState(false)
     const [password, setPassword] = useState();
     const [email, setEmail] = useState();
+    const history = useHistory();
 
 
     const openModalLogIn = () =>
@@ -15,16 +18,38 @@ export default function ModalLogIn() {
     const handleClose = () =>
         setModalLogIn(false);
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        const userLogIn = {
+    
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const response = await axios.post("http://localhost:5000/api/user/login", {
             email: email,
             password: password,
-        };
-        console.log(userLogIn);
-        setPassword("");
-        setEmail("");
+        });
+        console.log(response);
+        setModalLogIn(false);
+
+        const logIn = await axios.post("http://localhost:5000/api/user/login", {
+            email: email,
+            password: password
+        })
+        if (logIn.status === 200) {
+            localStorage.setItem('token', response.data);
+        }
+        console.log(logIn)
+        history.push('/')
+        const reload = window.location.reload()
     }
+
+    // const handleSubmit = (event) => {
+    //     event.preventDefault()
+    //     const userLogIn = {
+    //         email: email,
+    //         password: password,
+    //     };
+    //     console.log(userLogIn);
+    //     setPassword("");
+    //     setEmail("");
+    // }
     return (
         <>
             <Button

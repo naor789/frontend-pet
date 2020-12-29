@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Col, Button, Form, Row, Image } from "react-bootstrap";
 import logoblack from "../img/logoblack.png"
+// import axios from 'axios'
 
 
 export default function AddPet() {
@@ -13,41 +14,76 @@ export default function AddPet() {
     const [bio, setBio] = useState("");
     const [dietaryRestrictions, setDietaryRestrictions] = useState("");
     const [breed, setBreed] = useState("");
+    const [picture, setPicture] = useState(null)
 
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        const newPet = {
-            // id: Math.random(),
-            name: name,
-            adoptionStatus: adoptionStatus,
-            height: height,
-            weight: weight,
-            color: color,
-            bio: bio,
-            dietaryRestrictions: dietaryRestrictions,
-            breed: breed,
-
-        };
-        console.log(newPet);
-        setName("");
-        setAdoptionStatus("");
-        setHeight("");
-        setWeight("");
-        setColor("");
-        setBio("");
-        setDietaryRestrictions("");
-        setBreed("");
+    const handleFileUpload = (e) => {
+        const file = e.target.files[0]
+        setPicture(file)
     }
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        let formData = new FormData();
+        formData.append("name", name);
+        formData.append("adoptionStatus", adoptionStatus);
+        formData.append("height", height);
+        formData.append("weight", weight);
+        formData.append("color", color);
+        formData.append("bio", bio);
+        formData.append("dietaryRestrictions", dietaryRestrictions);
+        formData.append("breed", breed);
+        formData.append("picture", picture);
+        const requestOptions = {
+            method: 'POST',
+            body: formData
+        }
+        fetch("http://localhost:5000/api/pet", requestOptions)
+            .then(res => {
+                console.log(res.status);
+            })
+        
+        // history.push('/')
+        // const reload = window.location.reload()
+    }
+
+    // const handleSubmit = (event) => {
+    //     event.preventDefault()
+
+    // const newPet = {
+    //     // id: Math.random(),
+    //     name: name,
+    //     adoptionStatus: adoptionStatus,
+    //     height: height,
+    //     weight: weight,
+    //     color: color,
+    //     bio: bio,
+    //     dietaryRestrictions: dietaryRestrictions,
+    //     breed: breed,
+    //     picture: picture,
+
+    // };
+    //     console.log(newPet);
+    //     setName("");
+    //     setAdoptionStatus("");
+    //     setHeight("");
+    //     setWeight("");
+    //     setColor("");
+    //     setBio("");
+    //     setDietaryRestrictions("");
+    //     setBreed("");
+
+    // }
+
+
 
     return (
         <div className="container ">
-            <Form onSubmit={handleSubmit} className=" mx-auto mt-4 px-3 py-3 w-50 bg-light text-dark">
+            <Form onSubmit={handleSubmit} className=" mx-auto mt-2 px-3 py-3 w-50 bg-light text-dark">
                 <Row>
                     <Col>
                         <Form.Group controlId="Type">
                             <Form.Label className="mt-1">Type</Form.Label>
-                            <Form.Control as="select" defaultValue="Choose...">
+                            <Form.Control as="select" defaultValue="Choose..." >
                                 <option>Choose...</option>
                                 <option>Dog</option>
                                 <option>Cat</option>
@@ -98,7 +134,7 @@ export default function AddPet() {
                     <Col sm={4}>
                         <Form.Group  >
                             <Form.Label className="mt-3 ">Upload picture</Form.Label>
-                            <Form.File id="imgFile" required />
+                            <Form.File type='file' name='picture' onChange={handleFileUpload} required />
                         </Form.Group>
                     </Col>
                     <Col sm={4} >

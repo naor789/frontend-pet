@@ -1,18 +1,24 @@
 import React, { useState } from 'react'
 import { Modal, Button, Form } from "react-bootstrap";
-import { Last } from 'react-bootstrap/esm/PageItem';
-// import Modal from 'react-modal'
+// import { Last } from 'react-bootstrap/esm/PageItem';
+import { useHistory } from "react-router-dom";
+import axios from 'axios'
 
+// const axios = axios.create({
+//     baseURL: 'http://localhost:5000/api'
+// })
 
 export default function ModalSignUp() {
-    const [usersList, setUsersList] = useState([])
+    // const [usersList, setUsersList] = useState([])
     const [phoneNumber, setPhoneNumber] = useState("");
-    const [firsName, setFirsName] = useState("");
+    const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [password, setPassword] = useState("");
-    const [passwordConfirm, setPasswordConfirm] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [email, setEmail] = useState("");
     const [modalSignUp, setModalSignUp] = useState(false)
+    const history = useHistory();
+
 
     const openModalSignUp = () =>
         setModalSignUp(true);
@@ -22,25 +28,29 @@ export default function ModalSignUp() {
         setModalSignUp(false);
 
 
-    const handleSubmit = (event) => {
+
+    const handleSubmit = async (event) => {
         event.preventDefault()
-        const newUser = {
-            id: Math.random(),
+        const response = await axios.post("http://localhost:5000/api/user/register", {
             email: email,
             password: password,
-            firsName: firsName,
+            confirmPassword: confirmPassword,
+            firstName: firstName,
             lastName: lastName,
-            passwordConfirm: passwordConfirm,
             phoneNumber: phoneNumber,
-
-        };
-        console.log(newUser);
-        setPassword("");
-        setEmail("");
-        setFirsName("");
-        setLastName("");
-        setPhoneNumber("");
-        setPasswordConfirm("");
+        });
+        console.log(response);
+        setModalSignUp(false);
+        const logIn = await axios.post("http://localhost:5000/api/user/login", {
+            email: email,
+            password: password
+        })
+        if (logIn.status === 200) {
+            localStorage.setItem('token', response.data);
+        }
+        console.log(logIn)
+        history.push('/')
+        const reload = window.location.reload()
     }
 
     return (
@@ -71,13 +81,13 @@ export default function ModalSignUp() {
                         </Form.Group>
                         <Form.Group id="confirmPassword">
                             <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control type="password" value={passwordConfirm} required
-                                onChange={(event) => setPasswordConfirm(event.target.value)} />
+                            <Form.Control type="password" value={confirmPassword} required
+                                onChange={(event) => setConfirmPassword(event.target.value)} />
                         </Form.Group>
                         <Form.Group id="firsName">
-                            <Form.Label>Firs Name</Form.Label>
-                            <Form.Control type="email" value={firsName} required
-                                onChange={(event) => setFirsName(event.target.value)} />
+                            <Form.Label>First Name</Form.Label>
+                            <Form.Control type="email" value={firstName} required
+                                onChange={(event) => setFirstName(event.target.value)} />
                         </Form.Group>
                         <Form.Group id="lastName">
                             <Form.Label>Last Name</Form.Label>
