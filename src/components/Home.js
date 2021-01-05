@@ -20,7 +20,7 @@ export default function Home() {
             <div className="container homePage">
                 {/* <Row className="justify-content-md-center">
                     <Col xs={6} md={6}> */}
-                <h1 className="welcome">WELCOME</h1>
+                <h1 className="welcome">WELCOME </h1>
                 <span className="aboutUs">Adopting a rescued animal is one of the greatest feelings<br /> there is,
                     the little ones feel grateful and their way of saying<br /> thank you is with their unconditional love,
                         if you are thinking<br /> on having a pet, you should consider adopting first</span>

@@ -53,11 +53,6 @@ function App() {
           <Route exact path="/">
             <Home ></Home>
           </Route>
-          {/* <Route >
-            <ModalLogIn path="/login" />
-          </Route>  <Route >
-            <ModalSignUp path="/singup" />
-          </Route> */}
           <Route path="/profilesetting">
             <ProfileSetting></ProfileSetting>
           </Route>

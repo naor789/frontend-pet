@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Col, Button, Form, Row, Image } from "react-bootstrap";
 import logoblack from "../img/logoblack.png"
-// import axios from 'axios'
 
 
 export default function AddPet() {
@@ -32,13 +31,15 @@ export default function AddPet() {
         formData.append("bio", bio);
         formData.append("dietaryRestrictions", dietaryRestrictions);
         formData.append("breed", breed);
-        formData.append("picture", picture);
+        // formData.append("picture", picture);
         const requestOptions = {
             method: 'POST',
             body: formData
         }
+        
         fetch("http://localhost:5000/api/pet", requestOptions)
-            .then(res => {
+        .then(res => {
+                console.log(formData);
                 console.log(res.status);
             })
         
@@ -46,33 +47,6 @@ export default function AddPet() {
         // const reload = window.location.reload()
     }
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault()
-
-    // const newPet = {
-    //     // id: Math.random(),
-    //     name: name,
-    //     adoptionStatus: adoptionStatus,
-    //     height: height,
-    //     weight: weight,
-    //     color: color,
-    //     bio: bio,
-    //     dietaryRestrictions: dietaryRestrictions,
-    //     breed: breed,
-    //     picture: picture,
-
-    // };
-    //     console.log(newPet);
-    //     setName("");
-    //     setAdoptionStatus("");
-    //     setHeight("");
-    //     setWeight("");
-    //     setColor("");
-    //     setBio("");
-    //     setDietaryRestrictions("");
-    //     setBreed("");
-
-    // }
 
 
 
@@ -91,7 +65,7 @@ export default function AddPet() {
                         </Form.Group>
                     </Col>
                     <Col>
-                        <Form.Group controlId="Name">
+                        <Form.Group controlId="name">
                             <Form.Label className="mt-2">Name</Form.Label>
                             <Form.Control type="text"
                                 value={name}
@@ -103,7 +77,7 @@ export default function AddPet() {
                 </Row>
                 <Row>
                     <Col>
-                        <Form.Group controlId="AdoptionStatus">
+                        <Form.Group controlId="adoptionStatus">
                             <Form.Label className="mt-2">Adoption status</Form.Label>
                             <Form.Control type="text"
                                 value={adoptionStatus}
@@ -112,7 +86,7 @@ export default function AddPet() {
                         </Form.Group>
                     </Col>
                     <Col>
-                        <Form.Group controlId="DietaryRestrictions">
+                        <Form.Group controlId="dietaryRestrictions">
                             <Form.Label className="mt-2">Dietary restrictions</Form.Label>
                             <Form.Control type="text"
                                 value={dietaryRestrictions}
@@ -120,7 +94,7 @@ export default function AddPet() {
                         </Form.Group>
                     </Col>
                     <Col>
-                        <Form.Group controlId="DietaryRestrictions">
+                        <Form.Group controlId="breed">
                             <Form.Label className="mt-2">Breed</Form.Label>
                             <Form.Control type="text"
                                 value={breed}
@@ -131,12 +105,12 @@ export default function AddPet() {
                 </Row>
 
                 <Row>
-                    <Col sm={4}>
+                    {/* <Col sm={4}>
                         <Form.Group  >
                             <Form.Label className="mt-3 ">Upload picture</Form.Label>
                             <Form.File type='file' name='picture' onChange={handleFileUpload} required />
                         </Form.Group>
-                    </Col>
+                    </Col> */}
                     <Col sm={4} >
 
                         <Image src={logoblack} width="60%" className="logo-form" />
@@ -167,7 +141,7 @@ export default function AddPet() {
                 </Row>
                 <Row>
                     <Col>
-                        <Form.Group controlId="Height">
+                        <Form.Group controlId="height">
                             <Form.Label className="mt-2">Height</Form.Label>
                             <Form.Control type="text"
                                 value={height}
@@ -177,7 +151,7 @@ export default function AddPet() {
                         </Form.Group>
                     </Col>
                     <Col>
-                        <Form.Group controlId="Weight">
+                        <Form.Group controlId="weight">
                             <Form.Label className="mt-2">Weight</Form.Label>
                             <Form.Control type="text"
                                 value={weight}
@@ -187,7 +161,7 @@ export default function AddPet() {
                         </Form.Group>
                     </Col>
                     <Col>
-                        <Form.Group controlId="Color">
+                        <Form.Group controlId="color">
                             <Form.Label className="mt-2">Color</Form.Label>
                             <Form.Control type="text"
                                 value={color}
@@ -201,7 +175,7 @@ export default function AddPet() {
 
 
 
-                <Form.Group controlId="Bio">
+                <Form.Group controlId="bio">
                     <Form.Label className="mt-2">Bio</Form.Label>
                     <Form.Control as="textarea"
                         rows={3}

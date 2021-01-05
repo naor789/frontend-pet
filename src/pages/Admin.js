@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Tab, Tabs } from "react-bootstrap";
 import AddPet from './AddPet';
+import MyPets from './MyPets';
 
 
 
@@ -19,7 +20,7 @@ export default function Admin() {
                     <AddPet />
                 </Tab>
                 <Tab eventKey="userList" className="tabs" title="User list">
-
+<MyPets/>
                 </Tab>
 
             </Tabs>
