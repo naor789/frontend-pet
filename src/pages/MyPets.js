@@ -20,7 +20,7 @@ export default function MyPets() {
             console.log(petsList);
         }
         getPetsList()
-    }, [])
+    }, [])  
 
 
     return (

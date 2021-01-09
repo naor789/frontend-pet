@@ -1,14 +1,25 @@
-import React, { useState } from 'react'
-import { Tab, Tabs } from "react-bootstrap";
+import React, { useState, useEffect } from 'react'
+import { Tab, Tabs , Row } from "react-bootstrap";
 import AddPet from './AddPet';
-import MyPets from './MyPets';
+import User from './User';
+import axios from 'axios'
+
 
 
 
 export default function Admin() {
-    // type
-    // img
-    //  Hypoallergenic
+    const [userList, setUserList] = useState([])
+
+
+
+    useEffect(() => {
+        const getUsersList = async () => {
+            const res = await axios.get('http://localhost:5000/api/user')
+            setUserList(res.data);
+            console.log(userList);
+        }
+        getUsersList()
+    }, [])
 
 
 
@@ -20,7 +31,12 @@ export default function Admin() {
                     <AddPet />
                 </Tab>
                 <Tab eventKey="userList" className="tabs" title="User list">
-<MyPets/>
+                    <Row>
+                        {userList.map((user) => (
+                            <User key={user.id} user={user} />
+                        )
+                        )}
+                    </Row>
                 </Tab>
 
             </Tabs>

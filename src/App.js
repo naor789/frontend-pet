@@ -13,6 +13,7 @@ import SearchPet from './pages/SearchPet';
 import Admin from './pages/Admin';
 import logo from "./img/logo.png";
 import Pet from "./pages/Pet"
+import PetCard from './pages/PetCard';
 
 
 function App() {
@@ -59,6 +60,9 @@ function App() {
           <Route path="/mypets">
             <MyPets >
             </MyPets>
+          </Route>
+          <Route path="/petcard/:id">
+            <PetCard ></PetCard>
           </Route>
           <Route path="/searchpet">
             <SearchPet ></SearchPet>

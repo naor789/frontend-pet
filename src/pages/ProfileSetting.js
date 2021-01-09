@@ -78,7 +78,7 @@ export default function ProfileSetting() {
                                 onChange={(event) => setBio(event.target.value)} />
                         </Form.Group>
 
-                        <Button onClick={handleSubmit} className="w-100 mt-3" type="submit" > Save changes </Button>
+                        <Button onClick={handleSubmit} className="w-100 mt-3 button" type="submit" > Save changes </Button>
                     </Form>
                 </Card>
 

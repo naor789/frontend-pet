@@ -4,7 +4,7 @@ import logoblack from "../img/logoblack.png"
 
 
 export default function AddPet() {
-
+    const [type, setType] = useState("Dog");
     const [name, setName] = useState("");
     const [adoptionStatus, setAdoptionStatus] = useState("");
     const [height, setHeight] = useState("");
@@ -14,7 +14,7 @@ export default function AddPet() {
     const [dietaryRestrictions, setDietaryRestrictions] = useState("");
     const [breed, setBreed] = useState("");
     const [picture, setPicture] = useState(null)
-
+    const [hypoallergenic, setHypoallergenic]= useState(false)
 
     const handleFileUpload = (e) => {
         const file = e.target.files[0]
@@ -23,6 +23,7 @@ export default function AddPet() {
     const handleSubmit = async (event) => {
         event.preventDefault()
         let formData = new FormData();
+        formData.append("type", type);
         formData.append("name", name);
         formData.append("adoptionStatus", adoptionStatus);
         formData.append("height", height);
@@ -31,18 +32,19 @@ export default function AddPet() {
         formData.append("bio", bio);
         formData.append("dietaryRestrictions", dietaryRestrictions);
         formData.append("breed", breed);
+        formData.append("hypoallergenic", hypoallergenic)
         // formData.append("picture", picture);
         const requestOptions = {
             method: 'POST',
             body: formData
         }
-        
+
         fetch("http://localhost:5000/api/pet", requestOptions)
-        .then(res => {
+            .then(res => {
                 console.log(formData);
                 console.log(res.status);
             })
-        
+
         // history.push('/')
         // const reload = window.location.reload()
     }
@@ -57,8 +59,9 @@ export default function AddPet() {
                     <Col>
                         <Form.Group controlId="Type">
                             <Form.Label className="mt-1">Type</Form.Label>
-                            <Form.Control as="select" defaultValue="Choose..." >
-                                <option>Choose...</option>
+                            <Form.Control as="select" defaultValue="Dog"
+                                value={type}
+                                onChange={(event) => setType(event.target.value)}    >
                                 <option>Dog</option>
                                 <option>Cat</option>
                             </Form.Control>
@@ -125,15 +128,19 @@ export default function AddPet() {
                                     type="radio"
                                     label="Yes"
                                     name="Yes"
+                                    value={true} 
                                     id="yesButton"
-                                />
+                                    checked={hypoallergenic === true}
+                                    onChange={(event) => setHypoallergenic(event.target.value)}/>
                                 <Form.Check
                                     className="mx-4"
                                     type="radio"
                                     label="No"
                                     name="No"
+                                    value={false} 
                                     id="noButton"
-                                />
+                                    checked={hypoallergenic === false}
+                                    onChange={(event) => setHypoallergenic(event.target.value)}/>
                             </Col>
                         </Form.Group>
                     </Col>
@@ -182,7 +189,7 @@ export default function AddPet() {
                         value={bio}
                         onChange={(event) => setBio(event.target.value)} />
                 </Form.Group>
-                <Button className="mt-3" variant="primary" type="submit"> Save </Button>
+                <Button className="mt-3 button"  type="submit"> Save </Button>
             </Form>
 
 

@@ -25,8 +25,6 @@ export default function ModalLogIn() {
             email: email,
             password: password,
         });
-        console.log(response);
-        setModalLogIn(false);
 
         const logIn = await axios.post("http://localhost:5000/api/user/login", {
             email: email,
@@ -35,6 +33,7 @@ export default function ModalLogIn() {
         if (logIn.status === 200) {
             localStorage.setItem('token', response.data);
         }
+        setModalLogIn(false);
         console.log(logIn)
         history.push('/')
         const reload = window.location.reload()

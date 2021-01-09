@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { InputGroup, Button, FormControl, Form, Card, Collapse } from "react-bootstrap";
+import { InputGroup, Button, FormControl, Form, Card, Collapse , Row } from "react-bootstrap";
 import dogandcat from "../img/dogandcat.jpg"
-
+import axios from 'axios'
+import Pet from "./Pet"
 
 export default function SearchPet() {
     const [searchType, setSearchType] = useState("");
@@ -10,11 +11,12 @@ export default function SearchPet() {
     const [searchHeight, setSearchHeight] = useState("");
     const [searchWeight, setSearchWeight] = useState("");
     const [searchName, setSearchName] = useState("");
+    const [petList , setPetList] = useState([])
+const [showResults , setShowResults]= useState(false)
 
 
 
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
         const newSearch = {
             searchType: searchType,
@@ -23,19 +25,24 @@ export default function SearchPet() {
             searchWeight: searchWeight,
             searchName: searchName,
         };
-        console.log(newSearch);
-        setSearchType("");
-        setSearchAdoptionStatus("");
-        setSearchHeight("");
-        setSearchWeight("");
-        setSearchName("");
+        const res = await axios.get(`http://localhost:5000/api/pet/search?type=${searchType}&&height=${searchHeight}&&weight=${searchWeight}&&name=${searchName}&&adoptionStatus=${searchAdoptionStatus}`)
+        setPetList(res.data);
+        setShowResults(true)
+        console.log(petList);
+        }
 
-    }
+      
+    //     setSearchType("");
+    //     setSearchAdoptionStatus("");
+    //     setSearchHeight("");
+    //     setSearchWeight("");
+    //     setSearchName("");
+
+    // }
 
     return (
         <>
-
-            <div className="container w-50 search">
+            <div className="container search">
 
                 <Card >
                     <Card.Img src={dogandcat} alt="dog and a cat" className="mx-auto" size="lg" block></Card.Img>
@@ -52,6 +59,7 @@ export default function SearchPet() {
                                         <Button onClick={handleSubmit} variant="dark">Search</Button>
 
                                         <Button
+                                            className="button"
                                             onClick={() => setOpen(!open)}
                                             aria-controls="savedPets"
                                             aria-expanded={open}
@@ -105,14 +113,24 @@ export default function SearchPet() {
                                         <Form.Text >
                                         </Form.Text>
                                     </Form.Group>
-                                    <Button onClick={handleSubmit} variant="outline-dark" className="mt-2 ">Search</Button>
+                                    <Button onClick={handleSubmit} variant="dark" className="mt-2 ">Search</Button>
                                 </div>
                             </Collapse>
 
                         </Form>
                     </Card.ImgOverlay>
                 </Card>
-
+                {!showResults ?
+                    <div className="container">
+                        <Row>
+                            {petList.map((pet) => (
+                                <Pet key={pet.id} pet={pet} />
+                            )
+                            )}
+                        </Row>
+                    </div>  
+            :<span></span>
+            }
             </div>
         </>);
 }

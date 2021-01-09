@@ -3,10 +3,17 @@ body {
   font-family: "Comfortaa", cursive;
 }
 
-.homePage,
-.search {
+.homePage {
   position: relative;
 }
+
+
+.search {
+    position: relative;
+    width: 60%;
+
+}
+
 
 .welcome {
   z-index: 99;
@@ -46,16 +53,7 @@ body {
   color: #bc8f8f;
 }
 
-.button {
-  background-color: #bc8f8f;
-  border: none;
-  margin-left: 28%;
-  /* padding: 1%; */
-}
 
-.button:hover {
-  background-color: #d8bfd8;
-}
 
 .logo-nav {
   z-index: 99;
@@ -63,9 +61,6 @@ body {
 }
 
 .logo-form {
-  /* position: absolute;
-  margin-left: 771px;
-  margin-top: 222px; */
   z-index: 99;
 }
 
@@ -75,4 +70,14 @@ body {
 
 Tab {
   font-size: 10px !important;
+}
+
+.button {
+  background-color: #5D6D7E;
+  border:  #5D6D7E;
+}
+
+.button:hover{
+  background-color: #34495E ;
+  border: #34495E ;
 }
