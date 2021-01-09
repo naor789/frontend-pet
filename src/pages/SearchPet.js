@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { InputGroup, Button, FormControl, Form, Card, Collapse , Row } from "react-bootstrap";
+import { InputGroup, Button, FormControl, Form, Card, Collapse, Row } from "react-bootstrap";
 import dogandcat from "../img/dogandcat.jpg"
 import axios from 'axios'
 import Pet from "./Pet"
@@ -11,8 +11,8 @@ export default function SearchPet() {
     const [searchHeight, setSearchHeight] = useState("");
     const [searchWeight, setSearchWeight] = useState("");
     const [searchName, setSearchName] = useState("");
-    const [petList , setPetList] = useState([])
-const [showResults , setShowResults]= useState(false)
+    const [petList, setPetList] = useState([])
+    const [showResults, setShowResults] = useState(false)
 
 
 
@@ -28,17 +28,15 @@ const [showResults , setShowResults]= useState(false)
         const res = await axios.get(`http://localhost:5000/api/pet/search?type=${searchType}&&height=${searchHeight}&&weight=${searchWeight}&&name=${searchName}&&adoptionStatus=${searchAdoptionStatus}`)
         setPetList(res.data);
         setShowResults(true)
-        console.log(petList);
-        }
+        setSearchType("");
+        setSearchAdoptionStatus("");
+        setSearchHeight("");
+        setSearchWeight("");
+        setSearchName("");
 
-      
-    //     setSearchType("");
-    //     setSearchAdoptionStatus("");
-    //     setSearchHeight("");
-    //     setSearchWeight("");
-    //     setSearchName("");
+    }
 
-    // }
+
 
     return (
         <>
@@ -120,17 +118,14 @@ const [showResults , setShowResults]= useState(false)
                         </Form>
                     </Card.ImgOverlay>
                 </Card>
-                {!showResults ?
-                    <div className="container">
-                        <Row>
-                            {petList.map((pet) => (
-                                <Pet key={pet.id} pet={pet} />
-                            )
-                            )}
-                        </Row>
-                    </div>  
-            :<span></span>
-            }
+                <div className="container">
+                    <Row>
+                        {petList.map((pet) => (
+                            <Pet key={pet.id} pet={pet} />
+                        )
+                        )}
+                    </Row>
+                </div>
             </div>
         </>);
 }

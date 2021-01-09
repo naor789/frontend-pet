@@ -1,15 +1,11 @@
 import React, { useState } from 'react'
 import { Modal, Button, Form } from "react-bootstrap";
-// import { Last } from 'react-bootstrap/esm/PageItem';
 import { useHistory } from "react-router-dom";
 import axios from 'axios'
 
-// const axios = axios.create({
-//     baseURL: 'http://localhost:5000/api'
-// })
+
 
 export default function ModalSignUp() {
-    // const [usersList, setUsersList] = useState([])
     const [phoneNumber, setPhoneNumber] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -48,7 +44,7 @@ export default function ModalSignUp() {
         if (logIn.status === 200) {
             localStorage.setItem('token', response.data);
         }
-        console.log(logIn)
+
         history.push('/')
         const reload = window.location.reload()
     }
@@ -62,7 +58,6 @@ export default function ModalSignUp() {
             >Sign Up	</Button>
 
             <Modal show={modalSignUp} onHide={handleClose}>
-                {/* < Modal.Dialog className="d-flex align-items-center justify-content-center"> */}
                 <Modal.Header >
                     <Modal.Title>Sign Up</Modal.Title>
                     <Button variant="light" onClick={handleClose} type="button">x</Button>
@@ -99,16 +94,10 @@ export default function ModalSignUp() {
                             <Form.Control type="email" value={phoneNumber} required
                                 onChange={(event) => setPhoneNumber(event.target.value)} />
                         </Form.Group>
-                        <Button onClick={handleSubmit} className="w-100" type="submit"
-                        >
-                            Log In </Button>
+                        <Button onClick={handleSubmit} className="w-100" type="submit" >Log In </Button>
                     </Form>
 
                 </Modal.Body>
-                <div className="log-in w-100 text-center mt-2">
-                    Need an account?
-                    </div>
-                {/* <Link className="link-blue" to="/Signup">Sign Up</Link> */}
             </Modal>
         </>
     );

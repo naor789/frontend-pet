@@ -1,67 +1,117 @@
-import React, { useState } from 'react'
-import { Col, Button, Form, Row, Image } from "react-bootstrap";
 import logoblack from "../img/logoblack.png"
+import axios from 'axios'
+import React, { useState } from 'react';
+import { Form, Button, Card, Col, Row, Image } from 'react-bootstrap';
+
 
 
 export default function AddPet() {
-    const [type, setType] = useState("Dog");
-    const [name, setName] = useState("");
-    const [adoptionStatus, setAdoptionStatus] = useState("");
-    const [height, setHeight] = useState("");
-    const [weight, setWeight] = useState("");
-    const [color, setColor] = useState("");
-    const [bio, setBio] = useState("");
-    const [dietaryRestrictions, setDietaryRestrictions] = useState("");
-    const [breed, setBreed] = useState("");
-    const [picture, setPicture] = useState(null)
-    const [hypoallergenic, setHypoallergenic]= useState(false)
-
+    const [formData, setFormData] = useState({
+        type: 'Dog',
+        name: '',
+        adoptionStatus: 'Available',
+        height: 0,
+        weight: 0,
+        color: '',
+        bio: '',
+        dietaryRestrictions: '',
+        breed: '',
+        hypoallergenic: false,
+    });
+    const [picture, setPicture] = useState('');
+    const [previewPetImage, setPreviewPetImage] = useState('');
+    const [petImage, setPetImage] = useState();
+    const [disabled, setDisabled] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
     const handleFileUpload = (e) => {
-        const file = e.target.files[0]
-        setPicture(file)
-    }
-    const handleSubmit = async (event) => {
-        event.preventDefault()
-        let formData = new FormData();
-        formData.append("type", type);
-        formData.append("name", name);
-        formData.append("adoptionStatus", adoptionStatus);
-        formData.append("height", height);
-        formData.append("weight", weight);
-        formData.append("color", color);
-        formData.append("bio", bio);
-        formData.append("dietaryRestrictions", dietaryRestrictions);
-        formData.append("breed", breed);
-        formData.append("hypoallergenic", hypoallergenic)
-        // formData.append("picture", picture);
-        const requestOptions = {
-            method: 'POST',
-            body: formData
-        }
+        const file = e.target.files[0];
+        previewFile(file);
+        setPetImage(file);
+    };
+    const previewFile = async (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setPreviewPetImage(reader.result);
+        };
+    };
+    const onSubmitForm = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setDisabled(true);
+        const reader = new FileReader();
+        reader.readAsDataURL(petImage);
+        console.log();
+        setTimeout(async () => {
+            let newPet = {
+                type,
+                name,
+                adoptionStatus,
+                height,
+                weight,
+                color,
+                bio,
+                dietaryRestrictions,
+                breed,
+                hypoallergenic,
+                image: reader.result,
+            };
+            try {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                };
+                const body = JSON.stringify(newPet);
+                await axios.post('http://localhost:5000/api/pet', body, config);
 
-        fetch("http://localhost:5000/api/pet", requestOptions)
-            .then(res => {
-                console.log(formData);
-                console.log(res.status);
-            })
-
-        // history.push('/')
-        // const reload = window.location.reload()
-    }
-
-
+                setFormData({
+                    type: 'Dog',
+                    name: '',
+                    adoptionStatus: 'Available',
+                    height: 0,
+                    weight: 0,
+                    color: '',
+                    bio: '',
+                    dietaryRestrictions: '',
+                    breed: '',
+                    hypoallergenic: false,
+                });
+                setPicture('');
+                setPreviewPetImage('');
+            } catch (err) {
+                console.error(err.response);
+            }
+            setLoading(false);
+            setDisabled(false);
+        }, 2000);
+    };
+    const {
+        type,
+        name,
+        adoptionStatus,
+        height,
+        weight,
+        color,
+        bio,
+        dietaryRestrictions,
+        breed,
+        hypoallergenic,
+    } = formData;
 
 
     return (
         <div className="container ">
-            <Form onSubmit={handleSubmit} className=" mx-auto mt-2 px-3 py-3 w-50 bg-light text-dark">
+            <Form onSubmit={onSubmitForm} className=" mx-auto mt-2 px-3 py-3 w-50 bg-light text-dark">
                 <Row>
                     <Col>
                         <Form.Group controlId="Type">
                             <Form.Label className="mt-1">Type</Form.Label>
                             <Form.Control as="select" defaultValue="Dog"
                                 value={type}
-                                onChange={(event) => setType(event.target.value)}    >
+                                name='type'
+                                onChange={(e) => onChange(e)} >
                                 <option>Dog</option>
                                 <option>Cat</option>
                             </Form.Control>
@@ -73,8 +123,8 @@ export default function AddPet() {
                             <Form.Control type="text"
                                 value={name}
                                 required
-                                onChange={(event) => setName(event.target.value)}
-                            />
+                                name='name'
+                                onChange={(e) => onChange(e)} />
                         </Form.Group>
                     </Col>
                 </Row>
@@ -85,7 +135,8 @@ export default function AddPet() {
                             <Form.Control type="text"
                                 value={adoptionStatus}
                                 required
-                                onChange={(event) => setAdoptionStatus(event.target.value)} />
+                                onChange={(e) => onChange(e)}
+                                name='adoptionStatus' />
                         </Form.Group>
                     </Col>
                     <Col>
@@ -93,7 +144,10 @@ export default function AddPet() {
                             <Form.Label className="mt-2">Dietary restrictions</Form.Label>
                             <Form.Control type="text"
                                 value={dietaryRestrictions}
-                                onChange={(event) => setDietaryRestrictions(event.target.value)} />
+                                name='dietaryRestrictions'
+                                onChange={(e) => onChange(e)}
+                            // onChange={(event) => setDietaryRestrictions(event.target.value)}
+                            />
                         </Form.Group>
                     </Col>
                     <Col>
@@ -101,47 +155,40 @@ export default function AddPet() {
                             <Form.Label className="mt-2">Breed</Form.Label>
                             <Form.Control type="text"
                                 value={breed}
-                                onChange={(event) => setBreed(event.target.value)} />
+                                onChange={(e) => onChange(e)}
+                                name='breed' />
                         </Form.Group>
 
                     </Col>
                 </Row>
 
                 <Row>
-                    {/* <Col sm={4}>
-                        <Form.Group  >
-                            <Form.Label className="mt-3 ">Upload picture</Form.Label>
-                            <Form.File type='file' name='picture' onChange={handleFileUpload} required />
+                    <Col sm={4}>
+                        <Form.Group>
+                            <Form.File id="picture" value={picture} onChange={handleFileUpload} />
                         </Form.Group>
-                    </Col> */}
+                        <Col>
+                            {previewPetImage && <img
+                                src={previewPetImage}
+                                alt='pet'
+                                style={{ height: '150px' }}
+                            />}
+                        </Col>
+                    </Col>
                     <Col sm={4} >
-
                         <Image src={logoblack} width="60%" className="logo-form" />
                     </Col>
-                    <Col sm={4}>
-                        <Form.Group >
-                            <Form.Label className="mt-2" as="legend" column sm={2} >
-                                Hypoallergenic</Form.Label>
-                            <Col sm={10}>
-                                <Form.Check
-                                    className="mx-4"
-                                    type="radio"
-                                    label="Yes"
-                                    name="Yes"
-                                    value={true} 
-                                    id="yesButton"
-                                    checked={hypoallergenic === true}
-                                    onChange={(event) => setHypoallergenic(event.target.value)}/>
-                                <Form.Check
-                                    className="mx-4"
-                                    type="radio"
-                                    label="No"
-                                    name="No"
-                                    value={false} 
-                                    id="noButton"
-                                    checked={hypoallergenic === false}
-                                    onChange={(event) => setHypoallergenic(event.target.value)}/>
-                            </Col>
+                    <Col>
+                        <Form.Group>
+                            <Form.Label>Hypoallergenic :</Form.Label>
+                            <Form.Control
+                                as='select'
+                                name='hypoallergenic'
+                                value={hypoallergenic}
+                                onChange={(e) => onChange(e)}   >
+                                <option value={true}>Yes</option>
+                                <option value={false}>No</option>
+                            </Form.Control>
                         </Form.Group>
                     </Col>
 
@@ -152,9 +199,8 @@ export default function AddPet() {
                             <Form.Label className="mt-2">Height</Form.Label>
                             <Form.Control type="text"
                                 value={height}
-                                onChange={(event) => setHeight(event.target.value)}
-
-                            />
+                                name='height'
+                                onChange={(e) => onChange(e)} />
                         </Form.Group>
                     </Col>
                     <Col>
@@ -162,9 +208,8 @@ export default function AddPet() {
                             <Form.Label className="mt-2">Weight</Form.Label>
                             <Form.Control type="text"
                                 value={weight}
-                                onChange={(event) => setWeight(event.target.value)}
-
-                            />
+                                name='weight'
+                                onChange={(e) => onChange(e)} />
                         </Form.Group>
                     </Col>
                     <Col>
@@ -172,27 +217,26 @@ export default function AddPet() {
                             <Form.Label className="mt-2">Color</Form.Label>
                             <Form.Control type="text"
                                 value={color}
-                                onChange={(event) => setColor(event.target.value)}
-
-                            />
+                                name='color'
+                                onChange={(e) => onChange(e)} />
                         </Form.Group>
                     </Col>
-
                 </Row>
-
-
 
                 <Form.Group controlId="bio">
                     <Form.Label className="mt-2">Bio</Form.Label>
                     <Form.Control as="textarea"
                         rows={3}
                         value={bio}
-                        onChange={(event) => setBio(event.target.value)} />
+                        name='bio'
+                        onChange={(e) => onChange(e)} />
                 </Form.Group>
-                <Button className="mt-3 button"  type="submit"> Save </Button>
+                <Button className="mt-3 button" type="submit"> Save </Button>
             </Form>
 
 
         </div>
     )
-}
+
+};
+// export default AddPet;

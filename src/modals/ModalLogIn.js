@@ -18,7 +18,7 @@ export default function ModalLogIn() {
     const handleClose = () =>
         setModalLogIn(false);
 
-    
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const response = await axios.post("http://localhost:5000/api/user/login", {
@@ -34,21 +34,10 @@ export default function ModalLogIn() {
             localStorage.setItem('token', response.data);
         }
         setModalLogIn(false);
-        console.log(logIn)
         history.push('/')
         const reload = window.location.reload()
     }
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault()
-    //     const userLogIn = {
-    //         email: email,
-    //         password: password,
-    //     };
-    //     console.log(userLogIn);
-    //     setPassword("");
-    //     setEmail("");
-    // }
     return (
         <>
             <Button
@@ -60,7 +49,6 @@ export default function ModalLogIn() {
 
             <Modal show={modalLogIn} onHide={handleClose}>
 
-                {/* < Modal.Dialog className="d-flex align-items-center justify-content-center"> */}
                 <Modal.Header>
 
                     <Modal.Title>Log In</Modal.Title>
@@ -84,10 +72,6 @@ export default function ModalLogIn() {
                     </Form>
 
                 </Modal.Body>
-                {/* <div className="log-in w-100 text-center mt-2"> */}
-                {/* Need an account?
-                    </div> */}
-                {/* <Link className="link-blue" to="/Signup">Sign Up</Link> */}
             </Modal>
         </>
     );

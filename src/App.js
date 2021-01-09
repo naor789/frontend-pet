@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './App.css';
 import { Nav, Navbar, Image } from "react-bootstrap";
-// import ModalLogIn from '../modals/ModalLogIn';
-// import ModalSignUp from '../modals/ModalSignUp';
 import Home from './components/Home';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import ModalLogIn from './modals/ModalLogIn';
@@ -18,16 +16,6 @@ import PetCard from './pages/PetCard';
 
 function App() {
 
-  // const [modalLogIn, setModalLogIn] = useState(false)
-  // const [modalSignUp, setModalSignUp] = useState(false)
-
-  // const openModalLogIn = () => {
-  //   setModalLogIn(true)
-  // }
-
-  // const openModalSignUp = () => {
-  //   setModalSignUp(true)
-  // }
 
 
   return (

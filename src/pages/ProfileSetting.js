@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
-import { Button, Card, Container, Form ,Image} from "react-bootstrap";
+import React, { useState, } from 'react'
+import { Button, Card, Container, Form, Image } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import axios from 'axios'
 
 
 export default function ProfileSetting() {
@@ -7,34 +9,30 @@ export default function ProfileSetting() {
     const [firsName, setFirsName] = useState("");
     const [lastName, setLastName] = useState("");
     const [password, setPassword] = useState("");
-    const [passwordConfirm, setPasswordConfirm] = useState("");
     const [email, setEmail] = useState("");
     const [bio, setBio] = useState("");
+    const history = useHistory();
 
 
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
-        // setEmail(email);
-        // setPassword(password);
-        const updateProfile = {
-            id: Math.random(),
+        const res = await axios.put(`http://localhost:5000/api/user/${localStorage.getItem('id')}`, {
             email: email,
             password: password,
             firsName: firsName,
             lastName: lastName,
-            passwordConfirm: passwordConfirm,
             phoneNumber: phoneNumber,
 
-        };
-        console.log(updateProfile);
+        })
         setPassword("");
         setEmail("");
         setFirsName("");
         setLastName("");
         setPhoneNumber("");
-        setPasswordConfirm("");
         setBio("");
+        history.push('/HomeLogin')
+
     }
 
     return (
@@ -51,11 +49,6 @@ export default function ProfileSetting() {
                             <Form.Label className=" mt-3" >Password</Form.Label>
                             <Form.Control type="password" value={password} required
                                 onChange={(event) => setPassword(event.target.value)} />
-                        </Form.Group>
-                        <Form.Group id="confirmPassword">
-                            <Form.Label className=" mt-3" >Confirm Password</Form.Label>
-                            <Form.Control type="password" value={passwordConfirm} required
-                                onChange={(event) => setPasswordConfirm(event.target.value)} />
                         </Form.Group>
                         <Form.Group id="firsName">
                             <Form.Label className=" mt-3" >Firs Name</Form.Label>
