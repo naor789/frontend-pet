@@ -64,7 +64,7 @@ export default function AddPet() {
                     },
                 };
                 const body = JSON.stringify(newPet);
-                await axios.post('http://localhost:5000/api/pet', body, config);
+                await axios.post('http://backend-pet.herokuapp.com/api/pet', body, config);
 
                 setFormData({
                     type: 'Dog',

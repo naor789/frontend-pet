@@ -12,7 +12,7 @@ export default function PetCard(props) {
 
     useEffect(() => {
         const getPetById = async () => {
-            const res = await axios.get(`http://localhost:5000/api/pet/${petID}`)
+            const res = await axios.get(`http://backend-pet.herokuapp.com/api/pet/${petID}`)
             setPet(res.data);
         }
         getPetById()

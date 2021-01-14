@@ -12,7 +12,7 @@ export default function MyPets() {
 
     useEffect(() => {
         const getPetsList = async () => {
-            const res = await axios.get('http://localhost:5000/api/pet')
+            const res = await axios.get('http://backend-pet.herokuapp.com/api/pet')
             setPetsList(res.data);
             console.log(petsList);
         }

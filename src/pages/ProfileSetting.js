@@ -17,7 +17,7 @@ export default function ProfileSetting() {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        const res = await axios.put(`http://localhost:5000/api/user/${localStorage.getItem('id')}`, {
+        const res = await axios.put(`http://backend-pet.herokuapp.com/api/user/${localStorage.getItem('id')}`, {
             email: email,
             password: password,
             firsName: firsName,

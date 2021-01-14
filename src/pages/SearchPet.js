@@ -25,7 +25,7 @@ export default function SearchPet() {
             searchWeight: searchWeight,
             searchName: searchName,
         };
-        const res = await axios.get(`http://localhost:5000/api/pet/search?type=${searchType}&&height=${searchHeight}&&weight=${searchWeight}&&name=${searchName}&&adoptionStatus=${searchAdoptionStatus}`)
+        const res = await axios.get(`http://backend-pet.herokuapp.com/api/pet/search?type=${searchType}&&height=${searchHeight}&&weight=${searchWeight}&&name=${searchName}&&adoptionStatus=${searchAdoptionStatus}`)
         setPetList(res.data);
         setShowResults(true)
         setSearchType("");

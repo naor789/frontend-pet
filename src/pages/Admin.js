@@ -14,7 +14,7 @@ export default function Admin() {
 
     useEffect(() => {
         const getUsersList = async () => {
-            const res = await axios.get('http://localhost:5000/api/user')
+            const res = await axios.get('http://backend-pet.herokuapp.com/api/user')
             setUserList(res.data);
             console.log(userList);
         }
