@@ -146,7 +146,6 @@ export default function AddPet() {
                                 value={dietaryRestrictions}
                                 name='dietaryRestrictions'
                                 onChange={(e) => onChange(e)}
-                            // onChange={(event) => setDietaryRestrictions(event.target.value)}
                             />
                         </Form.Group>
                     </Col>
@@ -239,4 +238,3 @@ export default function AddPet() {
     )
 
 };
-// export default AddPet;
