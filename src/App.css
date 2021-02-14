@@ -7,26 +7,22 @@ body {
   position: relative;
 }
 
-
 .search {
-    position: relative;
-    width: 60%;
-
+  position: relative;
+  width: 60%;
 }
-
 
 .welcome {
   z-index: 99;
   position: absolute;
-  margin-top: 115px;
-  margin-top: 219px;
-  margin-left: 50px;
+  margin-top: 178px;
+  margin-left: 100px;
   font-weight: bold;
 }
 
 .aboutUs {
   position: absolute;
-  margin-top: 334px;
+  margin-top: 269px;
   z-index: 99;
   font-size: 18px;
   margin-left: 35px;
@@ -35,11 +31,10 @@ body {
 
 .quote {
   position: absolute;
-  /* font-family: 'Handlee', cursive; */
   z-index: 99;
   font-size: 21px;
   margin-left: 147px;
-  margin-top: 516px;
+  margin-top: 480px;
   font-weight: bold;
   padding: 7px;
 }
@@ -53,8 +48,6 @@ body {
   color: #bc8f8f;
 }
 
-
-
 .logo-nav {
   z-index: 99;
   position: absolute;
@@ -62,22 +55,31 @@ body {
 
 .logo-form {
   z-index: 99;
+  margin-left: 25px;
+}
+
+.add-img {
+  margin-top: 54px;
+}
+
+.hypo-input {
+  margin-top: 35px;
 }
 
 .white-text {
   color: white;
 }
 
-Tab {
+.Tab {
   font-size: 10px !important;
 }
 
 .button {
-  background-color: #5D6D7E;
-  border:  #5D6D7E;
+  background-color: #5d6d7e;
+  border: #5d6d7e;
 }
 
-.button:hover{
-  background-color: #34495E ;
-  border: #34495E ;
+.button:hover {
+  background-color: #34495e;
+  border: #34495e;
 }

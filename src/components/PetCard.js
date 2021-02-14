@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Card, Button } from "react-bootstrap";
 import { useParams, Link } from "react-router-dom";
 import axios from 'axios'
+import { UserContext } from '../context/UserContext';
 
 
 export default function PetCard(props) {
     let { id } = useParams();
     const petID = id;
     const [pet, setPet] = useState({});
+    const { baseURL } = useContext(UserContext);
 
 
     useEffect(() => {
         const getPetById = async () => {
-            const res = await axios.get(`http://backend-pet.herokuapp.com/api/pet/${petID}`)
+            const res = await axios.get(`${baseURL}/api/pet/${petID}`)
             setPet(res.data);
         }
         getPetById()
@@ -33,13 +35,9 @@ export default function PetCard(props) {
                     <Card.Text>bio: {pet.bio}</Card.Text>
                     <Card.Text>dietaryRestrictions: {pet.dietaryRestrictions}</Card.Text>
                     <Card.Text>breed:{pet.breed}</Card.Text>
-                    <Link to="/mypets" >
+                    <Link to="/searchpet" >
                         <Button className="button"  > Back </Button>
                     </Link>
-                    <Button className="m-3 button"> Return </Button>
-                    <Button className="m-3 button" > Adopt </Button>
-                    <Button className="m-3 button" > Foster </Button>
-                    <Button className="m-3 button" > Save </Button>
                 </Card.Body>
             </Card>
 

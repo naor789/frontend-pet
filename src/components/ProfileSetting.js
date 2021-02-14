@@ -1,7 +1,8 @@
-import React, { useState, } from 'react'
-import { Button, Card, Container, Form, Image } from "react-bootstrap";
+import React, { useState, useContext } from 'react'
+import { Button, Card, Container, Form } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import axios from 'axios'
+import { UserContext } from '../context/UserContext';
 
 
 export default function ProfileSetting() {
@@ -12,12 +13,12 @@ export default function ProfileSetting() {
     const [email, setEmail] = useState("");
     const [bio, setBio] = useState("");
     const history = useHistory();
-
+    const { baseURL, currentUser } = useContext(UserContext);
 
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        const res = await axios.put(`http://backend-pet.herokuapp.com/api/user/${localStorage.getItem('id')}`, {
+        const res = await axios.put(`${baseURL}/api/user/${currentUser._id}`, {
             email: email,
             password: password,
             firsName: firsName,
@@ -31,13 +32,13 @@ export default function ProfileSetting() {
         setLastName("");
         setPhoneNumber("");
         setBio("");
-        history.push('/HomeLogin')
+        history.push('/')
 
     }
 
     return (
         <>
-            <Container className="container">
+            <Container className="container mt-5">
                 <Card className=" mx-auto mb-4 mt-4 px-3 py-3 w-50 bg-light text-dark">
                     <Form className="mb-4" onSubmit={handleSubmit}>
                         <Form.Group id="email">

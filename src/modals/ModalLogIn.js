@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Modal, Button, Form } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import axios from 'axios'
+import { UserContext } from "../context/UserContext";
 
 
 export default function ModalLogIn() {
@@ -9,6 +10,7 @@ export default function ModalLogIn() {
     const [password, setPassword] = useState();
     const [email, setEmail] = useState();
     const history = useHistory();
+    const { setCurrentUser, baseURL } = useContext(UserContext);
 
 
     const openModalLogIn = () =>
@@ -21,28 +23,25 @@ export default function ModalLogIn() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const response = await axios.post("http://localhost:5000/api/user/login", {
-            email: email,
-            password: password,
-        });
-
-        const logIn = await axios.post("http://localhost:5000/api/user/login", {
+        const logIn = await axios.post(`${baseURL}/api/user/login`, {
             email: email,
             password: password
         })
         if (logIn.status === 200) {
-            localStorage.setItem('token', response.data);
+            localStorage.setItem('token', JSON.stringify(logIn.data));
+            setCurrentUser(logIn.data);
         }
+        setPassword("")
+        setEmail("")
         setModalLogIn(false);
         history.push('/')
-        const reload = window.location.reload()
+
     }
 
     return (
         <>
             <Button
                 className="btn btn-secondary my-2 my-sm-0 mx-3"
-
                 type="button"
                 onClick={openModalLogIn}
             > Log In </Button>
@@ -67,7 +66,7 @@ export default function ModalLogIn() {
                             <Form.Control type="password" value={password} required
                                 onChange={(event) => setPassword(event.target.value)} />
                         </Form.Group>
-                        <Button onClick={handleSubmit} className="w-100" type="submit">
+                        <Button onClick={handleSubmit} className="w-100 mt-3" type="button">
                             Log In </Button>
                     </Form>
 

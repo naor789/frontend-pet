@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { InputGroup, Button, FormControl, Form, Card, Collapse, Row } from "react-bootstrap";
 import dogandcat from "../img/dogandcat.jpg"
 import axios from 'axios'
 import Pet from "./Pet"
+import { UserContext } from "../context/UserContext";
+
+
 
 export default function SearchPet() {
     const [searchType, setSearchType] = useState("");
@@ -12,9 +15,16 @@ export default function SearchPet() {
     const [searchWeight, setSearchWeight] = useState("");
     const [searchName, setSearchName] = useState("");
     const [petList, setPetList] = useState([])
-    const [showResults, setShowResults] = useState(false)
+    const { baseURL } = useContext(UserContext);
 
 
+    useEffect(() => {
+        const getPetsList = async () => {
+            const res = await axios.get(`${baseURL}/api/pet`)
+            setPetList(res.data);
+        }
+        getPetsList()
+    }, [])
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -25,23 +35,18 @@ export default function SearchPet() {
             searchWeight: searchWeight,
             searchName: searchName,
         };
-        const res = await axios.get(`http://backend-pet.herokuapp.com/api/pet/search?type=${searchType}&&height=${searchHeight}&&weight=${searchWeight}&&name=${searchName}&&adoptionStatus=${searchAdoptionStatus}`)
+        const res = await axios.get(`${baseURL}/api/pet/search?type=${searchType}&&height=${searchHeight}&&weight=${searchWeight}&&name=${searchName}&&adoptionStatus=${searchAdoptionStatus}`)
         setPetList(res.data);
-        setShowResults(true)
         setSearchType("");
         setSearchAdoptionStatus("");
         setSearchHeight("");
         setSearchWeight("");
         setSearchName("");
-
     }
-
-
 
     return (
         <>
-            <div className="container search">
-
+            <div className="container search mb-5 mt-5">
                 <Card >
                     <Card.Img src={dogandcat} alt="dog and a cat" className="mx-auto" size="lg" block></Card.Img>
                     <Card.ImgOverlay>
@@ -111,14 +116,14 @@ export default function SearchPet() {
                                         <Form.Text >
                                         </Form.Text>
                                     </Form.Group>
-                                    <Button onClick={handleSubmit} variant="dark" className="mt-2 ">Search</Button>
+                                    <Button onClick={handleSubmit} variant="dark" className="mt-2">Search</Button>
                                 </div>
                             </Collapse>
 
                         </Form>
                     </Card.ImgOverlay>
                 </Card>
-                <div className="container">
+                <div className="container mt-5 pt-3">
                     <Row>
                         {petList.map((pet) => (
                             <Pet key={pet.id} pet={pet} />

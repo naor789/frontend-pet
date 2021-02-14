@@ -1,11 +1,12 @@
 import logoblack from "../img/logoblack.png"
 import axios from 'axios'
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Form, Button, Card, Col, Row, Image } from 'react-bootstrap';
-
+import { UserContext } from '../context/UserContext';
 
 
 export default function AddPet() {
+    const { baseURL } = useContext(UserContext);
     const [formData, setFormData] = useState({
         type: 'Dog',
         name: '',
@@ -21,9 +22,11 @@ export default function AddPet() {
     const [picture, setPicture] = useState('');
     const [previewPetImage, setPreviewPetImage] = useState('');
     const [petImage, setPetImage] = useState();
-    const [disabled, setDisabled] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+
+    const onChange = (e) =>
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    
     const handleFileUpload = (e) => {
         const file = e.target.files[0];
         previewFile(file);
@@ -38,12 +41,8 @@ export default function AddPet() {
     };
     const onSubmitForm = async (e) => {
         e.preventDefault();
-        setLoading(true);
-        setDisabled(true);
         const reader = new FileReader();
         reader.readAsDataURL(petImage);
-        console.log();
-        setTimeout(async () => {
             let newPet = {
                 type,
                 name,
@@ -64,7 +63,7 @@ export default function AddPet() {
                     },
                 };
                 const body = JSON.stringify(newPet);
-                await axios.post('http://backend-pet.herokuapp.com/api/pet', body, config);
+                await axios.post(`${baseURL}/api/pet`, body, config);
 
                 setFormData({
                     type: 'Dog',
@@ -83,9 +82,6 @@ export default function AddPet() {
             } catch (err) {
                 console.error(err.response);
             }
-            setLoading(false);
-            setDisabled(false);
-        }, 2000);
     };
     const {
         type,
@@ -145,8 +141,7 @@ export default function AddPet() {
                             <Form.Control type="text"
                                 value={dietaryRestrictions}
                                 name='dietaryRestrictions'
-                                onChange={(e) => onChange(e)}
-                            />
+                                onChange={(e) => onChange(e)} />
                         </Form.Group>
                     </Col>
                     <Col>
@@ -157,14 +152,12 @@ export default function AddPet() {
                                 onChange={(e) => onChange(e)}
                                 name='breed' />
                         </Form.Group>
-
                     </Col>
                 </Row>
-
                 <Row>
                     <Col sm={4}>
                         <Form.Group>
-                            <Form.File id="picture" value={picture} onChange={handleFileUpload} />
+                            <Form.File id="picture" className="add-img" value={picture} onChange={handleFileUpload} />
                         </Form.Group>
                         <Col>
                             {previewPetImage && <img
@@ -179,7 +172,8 @@ export default function AddPet() {
                     </Col>
                     <Col>
                         <Form.Group>
-                            <Form.Label>Hypoallergenic :</Form.Label>
+                            <Form.Label className="hypo-input"
+                            >Hypoallergenic :</Form.Label>
                             <Form.Control
                                 as='select'
                                 name='hypoallergenic'
@@ -190,7 +184,6 @@ export default function AddPet() {
                             </Form.Control>
                         </Form.Group>
                     </Col>
-
                 </Row>
                 <Row>
                     <Col>

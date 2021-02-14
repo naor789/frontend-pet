@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Modal, Button, Form } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import axios from 'axios'
+import { UserContext } from "../context/UserContext";
 
 
 
@@ -14,6 +15,7 @@ export default function ModalSignUp() {
     const [email, setEmail] = useState("");
     const [modalSignUp, setModalSignUp] = useState(false)
     const history = useHistory();
+    const { setCurrentUser, baseURL } = useContext(UserContext);
 
 
     const openModalSignUp = () =>
@@ -27,7 +29,7 @@ export default function ModalSignUp() {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        const response = await axios.post("http://localhost:5000/api/user/register", {
+        const response = await axios.post(`${baseURL}/api/user/register`, {
             email: email,
             password: password,
             confirmPassword: confirmPassword,
@@ -35,18 +37,24 @@ export default function ModalSignUp() {
             lastName: lastName,
             phoneNumber: phoneNumber,
         });
-        console.log(response);
-        setModalSignUp(false);
-        const logIn = await axios.post("http://localhost:5000/api/user/login", {
+        const logIn = await axios.post(`${baseURL}/api/user/login`, {
             email: email,
             password: password
         })
         if (logIn.status === 200) {
             localStorage.setItem('token', response.data);
-        }
+            setCurrentUser(logIn.data);
+            localStorage.setItem('user', JSON.stringify(logIn.data));
 
+        }
+        setPhoneNumber("")
+        setFirstName("")
+        setLastName("")
+        setPassword("")
+        setConfirmPassword("")
+        setEmail("")
+        setModalSignUp(false);
         history.push('/')
-        const reload = window.location.reload()
     }
 
     return (
@@ -54,8 +62,7 @@ export default function ModalSignUp() {
             <Button
                 className="btn btn-secondary my-2 my-sm-0 mr-4"
                 type="button"
-                onClick={openModalSignUp}
-            >Sign Up	</Button>
+                onClick={openModalSignUp}>Sign Up </Button>
 
             <Modal show={modalSignUp} onHide={handleClose}>
                 <Modal.Header >
@@ -94,7 +101,7 @@ export default function ModalSignUp() {
                             <Form.Control type="email" value={phoneNumber} required
                                 onChange={(event) => setPhoneNumber(event.target.value)} />
                         </Form.Group>
-                        <Button onClick={handleSubmit} className="w-100" type="submit" >Log In </Button>
+                        <Button onClick={handleSubmit} className="w-100 mt-3" type="button" >Sign Up </Button>
                     </Form>
 
                 </Modal.Body>

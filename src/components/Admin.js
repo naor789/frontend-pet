@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Tab, Tabs, Row } from "react-bootstrap";
 import AddPet from './AddPet';
 import User from './User';
-import axios from 'axios'
+import axios from 'axios';
+import { UserContext } from '../context/UserContext';
 
 
 
 
 export default function Admin() {
     const [userList, setUserList] = useState([])
+    const { baseURL } = useContext(UserContext);
 
 
 
     useEffect(() => {
         const getUsersList = async () => {
-            const res = await axios.get('http://backend-pet.herokuapp.com/api/user')
+            const res = await axios.get(`${baseURL}/api/user`)
             setUserList(res.data);
-            console.log(userList);
         }
         getUsersList()
     }, [])
@@ -25,7 +26,7 @@ export default function Admin() {
 
     return (
 
-        <div className="container">
+        <div className="container mt-5">
             <Tabs defaultActiveKey="addPet" id="uncontrolled-tab-example">
                 <Tab eventKey="addPet" className="tabs" title="Add pet">
                     <AddPet />

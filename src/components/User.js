@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
-import { Card, Button } from "react-bootstrap";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import React from 'react'
+import { Card } from "react-bootstrap";
 
 
 export default function User(user) {
-    const { email, name, phoneNumber } = user.user;
+    const { email, firstName, phoneNumber } = user.user;
 
 
     return (
@@ -13,13 +12,11 @@ export default function User(user) {
             <Card >
                 <Card.Header></Card.Header>
                 <Card.Body>
-                    <Card.Title> name:{name} </Card.Title>
+                    <Card.Title> name:{firstName} </Card.Title>
                     <Card.Text> email: {email}</Card.Text>
                     <Card.Text> phone number: {phoneNumber} </Card.Text>
                 </Card.Body>
             </Card>
-
-
         </div>
     )
 }
