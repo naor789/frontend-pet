@@ -36,12 +36,17 @@ export default function SearchPet() {
             searchName: searchName,
         };
         const res = await axios.get(`${baseURL}/api/pet/search?type=${searchType}&&height=${searchHeight}&&weight=${searchWeight}&&name=${searchName}&&adoptionStatus=${searchAdoptionStatus}`)
-        setPetList(res.data);
-        setSearchType("");
-        setSearchAdoptionStatus("");
-        setSearchHeight("");
-        setSearchWeight("");
-        setSearchName("");
+        if (res.data) {
+            
+            setPetList(res.data);
+            setSearchType("");
+            setSearchAdoptionStatus("");
+            setSearchHeight("");
+            setSearchWeight("");
+            setSearchName("");
+        } else {
+            alert("No results")
+        }
     }
 
     return (
@@ -54,7 +59,7 @@ export default function SearchPet() {
                             <InputGroup className="mb-2">
                                 <InputGroup className="mb-2">
                                     <FormControl
-                                        placeholder="Search for pet.."
+                                        placeholder="Cat/Dog"
                                         aria-label="Search"
                                         value={searchType}
                                         onChange={(event) => setSearchType(event.target.value)} />
