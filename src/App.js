@@ -28,8 +28,7 @@ function App() {
   useEffect(() => {
     const loggedInUser = localStorage.getItem('token');
     if (loggedInUser) {
-      const foundUser = JSON.parse(loggedInUser);
-      setCurrentUser(foundUser);
+      setCurrentUser(loggedInUser);
     }
   }, []);
 
