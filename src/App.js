@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './App.css';
-import { Nav, Navbar, Image, Button, Col, Row } from "react-bootstrap";
+import { Nav, Navbar, Image, Button} from "react-bootstrap";
 import Home from './components/Home';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import ModalLogIn from './modals/ModalLogIn';
